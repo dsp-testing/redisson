@@ -435,9 +435,9 @@ Send an unauthenticated GET request to `/api/v1/resources` — should return 401
 
 | Threat ID | Finding ID | Status |
 |-----------|------------|--------|
-| T01.S | FIND-01 | ✅ Covered |
-| T01.T | FIND-05 | ✅ Mitigated (team implemented TLS) |
-| T02.I | — | 🔄 Mitigated by Platform (Azure AD) |
+| T01.S | FIND-01 | ✅ Covered (FIND-01) |
+| T01.T | FIND-05 | ✅ Mitigated (FIND-05) |
+| T02.I | — | 🔄 Mitigated by Platform |
 ```
 
 Every threat from `2-stride-analysis.md` must appear in this table. Status is one of:
@@ -1009,20 +1009,16 @@ Use these rules so repeated runs on unchanged code produce comparable inventorie
 - [ ] 3 tier sub-sections per component (Tier 1, Tier 2, Tier 3)
 - [ ] Status column uses only: `Open`, `Mitigated`, `Platform` (no `Accepted Risk`, no `Needs Review`)
 - [ ] Platform ratio within limit (≤20% standalone, ≤35% K8s operator)
-- [ ] Every threat has single-letter STRIDE category (S/T/R/I/D/E/A)
 
 ### After `3-findings.md`:
 - [ ] 3 tier headings: `## Tier 1`, `## Tier 2`, `## Tier 3` (all present)
 - [ ] Zero occurrences of "Accepted Risk" anywhere in the file
 - [ ] Every finding has CVSS 4.0 vector string
-- [ ] Action Summary: T1=Critical, T2=Elevated, T3=Moderate priorities
-- [ ] 4th column header is "Assignment Rule" (not "Example")
 
 ### After `threat-inventory.json`:
 - [ ] `threats.length == metrics.total_threats` (zero tolerance)
 - [ ] `findings.length == metrics.total_findings` (zero tolerance)
 - [ ] If threats > 50, used sub-agent/Python/chunked — NOT single `create_file`
-- [ ] Every component has non-empty `fingerprint.source_directories`
 - [ ] Arrays sorted by canonical key
 - [ ] **Field names match schema exactly:** components use `display` (NOT `display_name`), threats use `stride_category` (NOT `category`), threat→component link is inside `identity_key.component_id` (NOT top-level `component_id`), threats have BOTH `title` (short name) AND `description` (longer prose) — NOT just `description` alone
 
@@ -1051,8 +1047,6 @@ All reports MUST use these exact values. Do NOT abbreviate, substitute, or inven
 **Mitigation Type (OWASP-aligned):** `Redesign` | `Standard Mitigation` | `Custom Mitigation` | `Existing Control` | `Accept Risk` | `Transfer Risk`
 
 **Threat Status:** `Open` | `Mitigated` | `Platform`
-
-**Finding Change Status (incremental):** `Still Present` | `Fixed` | `New` | `New (Code)` | `New (Previously Unidentified)` | `Removed`
 
 **OWASP Top 10:2025 suffix:** Always `:2025` (e.g., `A01:2025 – Broken Access Control`)
 - [ ] Quick Wins, Needs Verification, Finding Overrides subsections present

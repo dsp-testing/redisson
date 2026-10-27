@@ -104,12 +104,11 @@ Apply these frameworks during analysis:
 
    **⛔ NEEDS REVIEW RESTRICTIONS (MANDATORY):**
    - **Tier 1 threats (prerequisites = `None`) MUST NEVER be classified as "⚠️ Needs Review."** A threat exploitable by an unauthenticated external attacker cannot be deferred — it MUST become a finding.
-   - **If a threat has a mitigation listed in the STRIDE analysis, it SHOULD become a finding.** The mitigation text is the remediation — use it to write the finding. Only defer to "Needs Review" if the mitigation is genuinely not actionable.
+   - **If a threat has a mitigation listed in the STRIDE analysis, it SHOULD become a finding.** The mitigation text is the remediation — use it to write the finding.
    - **DoS threats with `None` prerequisites are Tier 1 findings**, not hardening opportunities. An unauthenticated attacker flooding an API with no rate limiting is a directly exploitable vulnerability (CWE-770, CWE-400).
    - **Do NOT batch-classify entire STRIDE categories as Needs Review.** Each threat must be evaluated individually based on its prerequisites and exploitability.
-   - **"⚠️ Needs Review" is reserved for:** Tier 2/3 threats where no technical mitigation is possible (e.g., social engineering), or threats requiring business context the tool doesn't have.
-   - **The automated analysis does NOT have authority to accept risks** — it only identifies them. "Needs Review" signals that a human must decide.
-   - **Maximum Needs Review ratio:** If more than 30% of threats are classified as "Needs Review", re-examine — you are likely under-reporting findings. Typical ratio: 10-20% for a well-analyzed codebase.
+   - **The automated analysis does NOT have authority to accept risks** — it only identifies them.
+   - **Maximum Needs Review ratio:** If more than 30% of threats are classified as "Needs Review", re-examine — you are likely under-reporting findings.
 7. **Minimum finding thresholds by repo size:**
    - Small repo (< 20 source files): 8+ findings expected
    - Medium repo (20-100 source files): 12+ findings expected
@@ -269,7 +268,6 @@ Prerequisites MUST use only these values (closed enum). The tier follows mechani
 3. **Authorization Check — What level of access is required?**
    - If no RBAC/role check beyond authentication → prerequisite stays `Authenticated User`
    - If admin/operator role required → prerequisite = `Privileged User`
-   - If specific permissions required → prerequisite names the permission (e.g., `ClusterAdmin Role`)
 
 4. **Physical/Local Access Check:**
    - If the component only listens on `localhost`/`127.0.0.1` → prerequisite = `Local Process Access` (T2)

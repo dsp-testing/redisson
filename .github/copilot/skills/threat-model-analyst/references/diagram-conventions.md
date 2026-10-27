@@ -118,7 +118,7 @@ These colors are shared across ALL Mermaid diagrams. Colors are from ColorBrewer
 
 Every Mermaid diagram — flowchart and sequence — MUST include an `%%{init}%%` block that forces a white background. This ensures diagrams render correctly in dark themes.
 
-> **⛔ CRITICAL: Do NOT add `primaryColor`, `secondaryColor`, `tertiaryColor`, or ANY custom color keys to themeVariables. The init block controls ONLY the background and line color. ALL element colors come from classDef lines — never from themeVariables. If you add color overrides to themeVariables, they will BREAK the classDef palette.**
+> **⛔ CRITICAL: If you add color overrides to themeVariables, they will BREAK the classDef palette.**
 
 ### Flowchart Init Block
 
