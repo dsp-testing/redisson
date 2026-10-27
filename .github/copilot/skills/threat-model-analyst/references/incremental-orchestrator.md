@@ -194,16 +194,16 @@ Now generate all report files. **Read the relevant skill files before starting:*
 
 **⛔ SUB-AGENT GOVERNANCE (MANDATORY — prevents the dual-folder bug):** The parent agent owns ALL file creation. Sub-agents are READ-ONLY helpers that search code, gather context, and run verification — they NEVER call `create_file` for report files. See the full Sub-Agent Governance rules in `orchestrator.md`. The ONLY exception is `threat-inventory.json` delegation for large repos — and even then, the sub-agent prompt must include the exact output file path and explicit instruction to write ONLY that one file.
 
-**⛔ CRITICAL: The incremental report is a STANDALONE report.** Someone reading it without the old report must understand the complete security posture. Status annotations ([STILL PRESENT], [FIXED], [NEW CODE], etc.) are additions on top of complete content — not replacements for it.
+**⛔ CRITICAL: The incremental report is a STANDALONE report.** Someone reading it without the old report must understand the complete security posture. Status annotations ([Existing], [Fixed], [New], etc.) are additions on top of complete content — not replacements for it.
 
 ### 4a. 0.1-architecture.md
 
 - **Read `skeletons/skeleton-architecture.md` first** — use as structural template
 - Copy the old report's component structure as your starting template
 - **Unchanged components:** Regenerate description using the current code (not copy-paste from old report). Same ID, same conventions.
-- **Modified components:** Update description to reflect code changes. Add annotation: `[MODIFIED — security-relevant changes detected]`
-- **New components:** Add with annotation: `[NEW]`
-- **Removed components:** Add with annotation: `[REMOVED]` and brief note
+- **Modified components:** Update description to reflect code changes. Add annotation: `[Existing] — security-relevant changes detected`
+- **New components:** Add with annotation: `[New]`
+- **Removed components:** Add with annotation: `[Removed]` and brief note
 - Tech stack, deployment model: update if changed, otherwise carry forward
 
   ⛔ **DEPLOYMENT CLASSIFICATION IS MANDATORY (even in incremental mode):**
@@ -234,7 +234,7 @@ Now generate all report files. **Read the relevant skill files before starting:*
 
 - **Read `skeletons/skeleton-threatmodel.md` first** — use table structure
 - Element table: all old elements + new elements, with an added `Status` column
-  - Values: `Unchanged`, `Modified`, `New`, `Removed`, `Restructured`
+  - Values: `Unchanged`, `Modified`, `New`, `Removed`
 - Flow table: all old flows + new flows, with `Status` column
 - Boundary table: inherited boundaries + any new ones
 - If `1.2-threatmodel-summary.mmd` was generated, include `## Summary View` section with the summary diagram and mapping table
@@ -282,7 +282,7 @@ For each component, the STRIDE analysis approach depends on its change status:
 
 | Component Status | STRIDE Approach |
 |-----------------|-----------------|
-| **Unchanged** | Carry forward all threat entries from old report with `[STILL PRESENT]` annotation. Re-verify each threat's mitigation status against current code. |
+| **Unchanged** | Carry forward all threat entries from old report with `[Existing]` annotation. Re-verify each threat's mitigation status against current code. |
 | **Modified** | Re-analyze the component with access to the diff. For each old threat: determine if `still_present`, `fixed`, `mitigated`, or `modified`. Discover new threats from the code changes → classify as `new_in_modified`. |
 | **New** | Full fresh STRIDE-A analysis (same as single-analysis mode). All threats classified as `new_code`. |
 | **Removed** | Section header with note: "Component removed — all threats resolved with `removed_with_component` status." |
@@ -472,23 +472,19 @@ Standard assessment sections (all 7 mandatory) plus incremental-specific section
 ### Threat Status
 | Status | Count |
 |--------|-------|
-| Still Present | X |
+| Existing | X |
 | Fixed | Y |
-| New (Code) | Z |
-| New (Modified) | M |
-| Previously Unidentified | W |
-| Removed with Component | V |
+| New | Z + M + W |
+| Removed | V |
 
 ### Finding Status
 | Status | Count |
 |--------|-------|
-| Still Present | X |
+| Existing | X |
 | Fixed | Y |
-| Partially Mitigated | P |
-| New (Code) | Z |
-| New (Modified) | M |
-| Previously Unidentified | W |
-| Removed with Component | V |
+| Partial | P |
+| New | Z + M + W |
+| Removed | V |
 
 ### Risk Direction
 [Improving / Worsening / Stable] — [1-2 sentence justification based on status distribution]
@@ -623,7 +619,7 @@ Run the standard `verification-checklist.md` (Phases 0–9) against the new repo
 
 ### 5b. Incremental Verification
 
-After standard verification passes, run the incremental-specific checks from `experiment-history/mode-c-verification-suite.md` (Phases 1–9, 33 checks). These verify:
+After standard verification passes, run the incremental-specific checks. These verify:
 - Structural continuity (every old item accounted for)
 - Code-verified status accuracy (e.g., "fixed" actually verified against code diff)
 - Previously-unidentified classification (verified against baseline worktree)
@@ -692,7 +688,6 @@ A component's `change_status` must be consistent with its threats' and findings'
 - Use the same ID
 - Reference current file paths (even if unchanged)
 - Be phrased in present tense about the current code
-- Include the `[STILL PRESENT]` annotation
 
 ---
 

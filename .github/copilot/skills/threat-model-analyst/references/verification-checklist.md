@@ -7,7 +7,7 @@ This file is the **single source of truth** for all verification rules that must
 **When to use:** After ALL output files are written (0.1-architecture.md through 0-assessment.md), run every check in this file. If any check fails, fix the issue before finalizing.
 
 **Sub-agent delegation:** The orchestrator can delegate this entire file to a verification sub-agent with the prompt:
-> "Read [verification-checklist.md](./verification-checklist.md). For each check, inspect the named output file(s) and report PASS/FAIL with evidence. Fix any failures."
+> "Read [verification-checklist.md](./verification-checklist.md). For each check, inspect the named output file(s) and report PASS/FAIL with evidence."
 
 ---
 
@@ -258,7 +258,6 @@ These checks validate each file independently. They can run in parallel.
   - STRIDE `Mitigated` → Coverage `✅ Mitigated (FIND-XX)` (finding documents existing control the team built)
   - STRIDE `Platform` → Coverage `🔄 Mitigated by Platform`
   - If STRIDE says `Partial` but Coverage says `Mitigated by Platform` → **CONFLICT. Fix it.**
-  - If STRIDE says `Open` but Coverage says `⚠️ Needs Review` → only valid if prerequisites ≠ `None`
 
 ### 1.6 `3-findings.md`
 
@@ -301,7 +300,6 @@ These checks validate each file independently. They can run in parallel.
 - [ ] **No separate Recommendations section** — Action Summary IS the recommendations
 - [ ] **Action Summary table** present with Tier, Description, Threats, Findings, Priority columns
 - [ ] **Action Summary is the ONLY name**: No sections titled "Priority Remediation Roadmap", "Top Recommendations", "Key Recommendations", or "Risk Profile"
-- [ ] **Quick Wins subsection** present (or explicitly omitted if no low-effort T1 findings)
 - [ ] **Needs Verification section** present under Analysis Context & Assumptions
 - [ ] **References Consulted** has two subsections: `### Security Standards` and `### Component Documentation`
 - [ ] **References Consulted tables** use three columns with full URLs: `| Standard | URL | How Used |` and `| Component | Documentation URL | Relevant Section |` — NOT a flat `| Reference | Usage |` table
